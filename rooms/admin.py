@@ -1,7 +1,8 @@
 from django.contrib import admin
 from . import models
 
-@admin.register(models.RoomType)
+# register는 여러개의 모델을 인자로 받을 수 있음
+@admin.register(models.RoomType, models.Facility, models.Amenitiy, models.HouseRule)
 class ItemAdmin(admin.ModelAdmin):
 
     pass
@@ -12,3 +13,4 @@ class ItemAdmin(admin.ModelAdmin):
 class RoomAdmin(admin.ModelAdmin):
     
     pass
+
