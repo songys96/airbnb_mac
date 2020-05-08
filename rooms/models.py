@@ -76,7 +76,6 @@ class Room(core_models.TimeStampedModel):
     # user model의 입장에서는 변한게 없다. 여기서만 임의로 연결함 read 의 영역
     # cascade는 유저가 지워지면 같이 지워짐
 
-
     room_type = models.ForeignKey('RoomType', on_delete=models.SET_NULL, null=True)
     amenities = models.ManyToManyField('Amenitiy', blank=True)
     facilities = models.ManyToManyField('Facility', blank=True)

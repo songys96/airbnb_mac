@@ -1,0 +1,15 @@
+startproject를 하면
+projectname 폴더가 생성되는데
+그 안에 config폴더가 있음
+그냥 프로젝트 이름을 config로 해놓고 밖으로 꺼내면
+가장 큰 폴더이름 = 프로젝트이름
+폴더안에 config, apps, db, pipfile, manage.py 있음
+config안의 setting이 주요 연결원
+
+startapp
+app안에 정리
+admin - 관리자 역할로 나만 볼 공간을 만듬
+apps - 기본적인 app구성요소를 집적해놓고 이를 프로젝트config의 app에 추가하는 것 (사실상 앱 구동 파일)
+models - 이 앱의 구성요소를 모아놓기. 필요한 기능들을 추가
+tests - 아마 테스트용
+views - 
