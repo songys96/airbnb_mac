@@ -71,10 +71,11 @@ class Room(core_models.TimeStampedModel):
     check_in = models.TimeField()
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
-    host = models.ForeignKey('users.User', on_delete=models.CASCADE)
+    host = models.ForeignKey('users.User', related_name="rooms", on_delete=models.CASCADE)
     # 'user'만 써도 알아서 모델을 찾아줌!!!!!!(장고의 기능)
     # user model의 입장에서는 변한게 없다. 여기서만 임의로 연결함 read 의 영역
     # cascade는 유저가 지워지면 같이 지워짐
+    # related_name은 다른 모델에서 연결된 모델을 찾을 때 사용될 이름
 
     room_type = models.ForeignKey('RoomType', on_delete=models.SET_NULL, null=True)
     amenities = models.ManyToManyField('Amenitiy', blank=True)
