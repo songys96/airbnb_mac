@@ -39,7 +39,8 @@ class User(AbstractUser):
     위 처럼 각 필요한 변수의 이름을 지정해 줌으로써 추상화에 신경써줌
     """
 
-    avatar = models.ImageField(null=True, blank=True)
+    avatar = models.ImageField(upload_to="avatars", null=True, blank=True)
+    # upload_to사용시 해당 폴더가 만들어질것임
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, null=True, blank=True)
     bio = models.TextField(default="", blank=True)
     birthdate = models.DateField(null=True)
