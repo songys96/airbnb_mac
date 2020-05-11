@@ -136,3 +136,7 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'users.User'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
+MEDIA_URL = "/media/"
+# media의 경로를 임의로 지정해주어서 url로 찾아갈 수 있음
+# 정확히 말하면 위 url을 받으면 MEDIA_ROOT로 변환해서 접근해줌

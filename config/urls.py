@@ -15,7 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+if settings.DEBUG:
+    """
+    향후에는 데이터를 AWS나 기타 DB서버를 이용할 것이기 때문에 
+    후 False로 바꿀 DEBUG를 조건으로 만들었고
+    static 도움으로 url을 추가하면서 VIEW를 연결시켜줌(화면에 이미지를 올려줌)
+    """
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    """static(url, folder) 아마 folder에 서버 DB연결하지 않을까? 싶음"""
