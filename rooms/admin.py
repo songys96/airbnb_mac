@@ -12,8 +12,23 @@ class ItemAdmin(admin.ModelAdmin):
         """아이템 개체마다 사용된 횟수를 나타내는 메서드"""
         return obj.rooms.count()
 
+
+class PhotoInline(admin.TabularInline):
+
+    """
+    PhotoAdmin class를 인라인 클래스에 상속시키고 
+    이 class인 PhotoInline을 RoomAdmin에 적용시키면
+    알아서 foreignKey를 가져옴
+    """
+    model = models.Photo
+    
+
+
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
+
+    inlines = (PhotoInline,)
+
     fieldsets =(
         ("Basic Info", {"fields": ("name", "description", "country", "address", "price")}),
         ("Times", {"fields": ("check_in", "check_out", "instant_book")}),

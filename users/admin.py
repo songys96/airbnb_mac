@@ -3,6 +3,10 @@ from django.contrib.auth.admin import UserAdmin
 from . import models
 
 
+class RoomInline(admin.TabularInline):
+    from rooms.models import Room
+    model = Room
+
 @admin.register(models.User)
 class CustomUserAdmin(UserAdmin):
     """
@@ -20,6 +24,7 @@ class CustomUserAdmin(UserAdmin):
         "username", "first_name", "last_name", "email", "is_active", "language", "currency", "superhost", "is_staff", "is_superuser"
     )
 
+    inlines = (RoomInline,)
 
 
 # 아래 만든 코드는 직접 하나하나 구현하는 것
