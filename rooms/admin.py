@@ -30,7 +30,7 @@ class RoomAdmin(admin.ModelAdmin):
     inlines = (PhotoInline,)
 
     fieldsets =(
-        ("Basic Info", {"fields": ("name", "description", "country", "address", "price")}),
+        ("Basic Info", {"fields": ("name", "description", "country", "city", "address", "price")}),
         ("Times", {"fields": ("check_in", "check_out", "instant_book")}),
         ("Space", {"fields": ("guests", "beds", "baths", "bedrooms")}),
         ("More About the Space", {"fields": ("amenities", "facilities", "house_rules")}),
@@ -51,7 +51,12 @@ class RoomAdmin(admin.ModelAdmin):
 
     raw_id_fields = ("host", )
 
-
+    def save_model(self, request, obj, form, change):
+        """
+        obj.save()가 기본이므로 관리자에게만 추가기능을 넣고 싶을때
+        overriding하기
+        """
+        super().save_model(request, obj, form, change)
 
     def count_amenities(self, obj):
         """
@@ -61,7 +66,7 @@ class RoomAdmin(admin.ModelAdmin):
         obj은 Room model객체를 반환할 것임
         """
         #print(obj)
-        print(obj.amenities.count())
+        #print(obj.amenities.count())
         return "hello"
     count_amenities.short_description = "여기서 필드명을 바꿀 수 있음"
     # 위 count_amenities는 함수이기 때문에 admin패널에서 정렬시킬 수 없음

@@ -24,8 +24,8 @@ class CustomUserAdmin(UserAdmin):
         "username", "first_name", "last_name", "email", "is_active", "language", "currency", "superhost", "is_staff", "is_superuser"
     )
 
-    inlines = (RoomInline,)
-
+    # inlines = (RoomInline,)
+    # 사용자가 가지고 있는 방의 정보를 유저admin에 넣을 수 있음
 
 # 아래 만든 코드는 직접 하나하나 구현하는 것
 

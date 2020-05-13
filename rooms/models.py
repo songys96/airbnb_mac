@@ -87,6 +87,17 @@ class Room(core_models.TimeStampedModel):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        """
+        저장할때 필요한 부분을 수정한 후에 
+        Super를 이용해서 저장하기!
+        admin에서 저장하는 것뿐 아니라 모든 모델이 저장할 때 
+        변경되는 사항임. 
+        admin.save_model()하면 admin에서 되는것
+        """
+        self.city = str(self.city).capitalize()
+        super().save(*args, **kwargs)
+
     def total_rating(self):
         # self는 room모델이고 review가 related_name을 가지고있음
         all_reviews = self.reviews.all()
