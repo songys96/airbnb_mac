@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import mark_safe
 from . import models
 
 # register는 여러개의 모델을 인자로 받을 수 있음
@@ -33,6 +34,10 @@ class RoomAdmin(admin.ModelAdmin):
     ordering = ('name', 'price')
     # 우선순위를 줄 수 있으면서 동시에 정렬시켜줌
 
+    raw_id_fields = ("host", )
+
+
+
     def count_amenities(self, obj):
         """
         self는 admin 클래스를 받고 obj는 해당 열을 받음
@@ -55,4 +60,13 @@ class RoomAdmin(admin.ModelAdmin):
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
 
-    pass
+    list_display = ('__str__', 'get_thumbnail')
+
+    def get_thumbnail(self, obj):
+        # print(obj.file)
+        # obj.file은 string처럼 보이지만 클라스객체임
+        # file의 정보를 가지고 있음
+        # f'<img src="{obj.file.url}"/>' 이렇게 하면 쟝고가 string으로 바꿈
+        # 보안상의 이유임. JS로 해킹하는 것을 막기 위하여
+        return mark_safe(f'<img width=25 height=35 src="{obj.file.url}"/>')
+    get_thumbnail.short_description = "Thumbnail"
