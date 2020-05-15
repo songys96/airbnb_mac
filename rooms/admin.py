@@ -36,7 +36,7 @@ class RoomAdmin(admin.ModelAdmin):
         ("More About the Space", {"fields": ("amenities", "facilities", "house_rules")}),
         ("Details", {"fields": ("host",)})
     )
-    list_display = ("name", "country", "city", "price", "beds", "guests", "bedrooms", "baths", "check_in", "check_out", "instant_book","count_amenities", "count_photos", "total_rating")
+    list_display = ("name", "country", "city", "created","price", "beds", "guests", "bedrooms", "baths", "check_in", "check_out", "instant_book","count_amenities", "count_photos", "total_rating")
     
     list_filter = ("instant_book", "host__superhost", "room_type", "amenities", "facilities", "house_rules", "country", "city")
     # host__superhost 의 경우는 room.host -> user model .... user.superhost -> boolean 을 가져옴..!
@@ -74,7 +74,7 @@ class RoomAdmin(admin.ModelAdmin):
     def count_photos(self, obj):
         # obj is PhotoModel.object
         return obj.photos.count()
-
+    count_photos.short_description = "Photo Count"
     
         
 @admin.register(models.Photo)

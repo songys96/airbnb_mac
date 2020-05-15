@@ -27,7 +27,7 @@ class Reservation(core_models.TimeStampedModel):
         # django time server zone을 이용해서 장고가 시간을 해당 시각에 맞게 변환해줄것
         # 어플리케이션의 시간을 알 수 있음
         now = timezone.now().date()
-        return now > self.check_in and now < self.check_out
+        return now >= self.check_in and now <= self.check_out
     in_progress.boolean = True
 
     def in_finished(self):
