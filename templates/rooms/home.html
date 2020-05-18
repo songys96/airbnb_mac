@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% comment %} base에 설치해놓은 블럭을 여기에다가 만들어줌 {% endcomment %}
+
+{% block page_name %}
+    home
+{% endblock page_name %}
+
+{% block content %}
+    {% for room in rooms %}
+        <h1>{{room.name}} - {{room.price}}원</h1>
+    {% endfor %}
+{% endblock  %}
