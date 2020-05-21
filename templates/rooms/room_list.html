@@ -7,21 +7,21 @@
 {% endblock page_name %}
 
 {% block content %}
-    {% for room in page.object_list %}
+    {% for room in object_list %}
         <h3>{{room.name}} - {{room.price}}원</h3>
     {% endfor %}
 
     
-    Page {{page.number}} of {{page.paginator.num_pages}}
+    Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
     {% comment %} page.paginator는 부모한테 가는 것이고 부모의 num_pages를 가져옴 {% endcomment %}
     <h5>
-    {% if page.has_previous %}
+    {% if page_obj.has_previous %}
         <a href = "?page={{page.previous_page_number}}">이전</a>
     {% endif %}
-    {% for page in page.paginator.page_range %}
+    {% for page in page_obj.paginator.page_range %}
         <a href = "?page={{page}}">{{page}}</a>
     {% endfor %}
-    {% if page.has_next %}
+    {% if page_obj.has_next %}
         <a href = "?page={{page.next_page_number}}">다음</a>
     {% endif %}
     </h5>
