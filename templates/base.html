@@ -6,10 +6,11 @@
     <title>{% block page_name %}{% endblock page_name %}</title>
 </head>
 <body>
+
+    {% include "partials/header.html" %}
     {% block content %}
     
     {% endblock content %}
-
-    &copy; Nbnb
+    {% include "partials/footer.html" %}
 </body>
 </html>
