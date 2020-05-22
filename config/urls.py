@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 # namespace는 해당 view에서 app_name과 같은 이름이어야함
 urlpatterns = [
     path("", include("core.urls", namespace="core")),
+    path("rooms/", include("rooms.urls", namespace="rooms")),
     path('admin/', admin.site.urls),
 ]
 

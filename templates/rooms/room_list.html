@@ -7,8 +7,12 @@
 {% endblock page_name %}
 
 {% block content %}
-    {% for room in object_list %}
-        <h3>{{room.name}} - {{room.price}}원</h3>
+    {% for room in rooms %}
+        
+        <h3><a href="{% url "rooms:detail" room.pk %}"> {{room.name}} - {{room.price}}원</h3>
+        {% comment %} 
+        순서 : views.py (def room_detail) -> urls.py (urlpatterns(path(인자, room_detail, name=찾을 이름)))
+        {% endcomment %}
     {% endfor %}
 
     
