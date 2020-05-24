@@ -33,7 +33,7 @@ class RoomAdmin(admin.ModelAdmin):
         ("Basic Info", {"fields": ("name", "description", "country", "city", "address", "price")}),
         ("Times", {"fields": ("check_in", "check_out", "instant_book")}),
         ("Space", {"fields": ("guests", "beds", "baths", "bedrooms")}),
-        ("More About the Space", {"fields": ("amenities", "facilities", "house_rules")}),
+        ("More About the Space", {"fields": ("room_type","amenities", "facilities", "house_rules")}),
         ("Details", {"fields": ("host",)})
     )
     list_display = ("name", "country", "city", "created","price", "beds", "guests", "bedrooms", "baths", "check_in", "check_out", "instant_book","count_amenities", "count_photos", "total_rating")
