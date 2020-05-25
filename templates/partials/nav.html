@@ -1,7 +1,11 @@
 <nav>
     <a href="{% url "core:home" %}">YS - BNB</a>
     <ul>
-        <li><a href="#">Login</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url "users:logout" %}">LogOut</a></li>
+        {% else %}
+        <li><a href="{% url "users:login" %}">Login</a></li>
+        {% endif %}
     </ul>
     
 </nav>

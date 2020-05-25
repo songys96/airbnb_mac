@@ -1,3 +1,54 @@
-from django.shortcuts import render
-
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect, reverse
+from django.views.generic import FormView
+from django.views import View
+from django.urls import reverse_lazy
+from . import forms
 # Create your views here.
+
+class LoginView(FormView):
+
+    form_class = forms.LoginForm
+    template_name = "users/login.html"
+    success_url = reverse_lazy("core:home")
+
+    def form_valid(self, form):
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password")
+        user = authenticate(self.request, username=username, password=password)
+        if user is not None:
+            login(self.request, user)
+        return super().form_valid(form)
+
+
+
+
+
+class LoginView_가내수공업(View):
+    
+    def get(self, request):
+        form = forms.LoginForm(initial={"username":"songys"})
+        return render(request, "users/login.html", context={"form":form})
+
+    def post(self, request):
+        """
+        work flow - form 인스턴스를 먼저 만들고 is_valid과정에서 form.clean()으로 넘어감
+        """
+        form = forms.LoginForm(request.POST)
+        print("------------")
+        if form.is_valid():
+            print("valid")
+            username = form.cleaned_data.get("username")
+            print(username)
+            password = form.cleaned_data.get("password")
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                
+            return redirect(reverse("core:home"))
+        return render(request, "users/login.html", {"form":form})
+
+
+def log_out(request):
+    logout(request)
+    return redirect("core:home")
