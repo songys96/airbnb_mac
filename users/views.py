@@ -1,3 +1,4 @@
+import os
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import FormView
@@ -44,6 +45,20 @@ class SignUpView(FormView):
             login(self.request, user)
             print("login~~~")
         return super().form_valid(form)
+
+def login_github(request):
+    
+
+def login_github_callback(request):
+    pass
+
+def login_kakao(request):
+    pass
+
+def login_kakao_callback(request):
+    pass
+
+
 
 
 

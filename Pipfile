@@ -12,6 +12,8 @@ pillow = "*"
 django-countries = "*"
 django-seed = "*"
 get-variable-name = "*"
+requests = "*"
+django-dotenv = "*"
 
 [requires]
 python_version = "3.8"

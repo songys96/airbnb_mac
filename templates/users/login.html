@@ -9,6 +9,9 @@
 {% endblock search-bar %}
 
 {% block content %}
+
+    {% include "users/social_login.html" %}
+
     Hello
     <form method="POST" action="{% url "users:login" %}">
         {% csrf_token %}
