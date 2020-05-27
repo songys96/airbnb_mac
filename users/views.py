@@ -23,6 +23,33 @@ class LoginView(FormView):
 
 
 
+def log_out(request):
+    logout(request)
+    return redirect("core:home")
+
+class SignUpView(FormView):
+
+    form_class = forms.SignUpForm
+    template_name = "users/signup.html"
+    success_url = reverse_lazy("core:home")
+
+    def form_valid(self, form):
+        form.save()
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password")
+        print(username, password)
+        user = authenticate(self.request, username=username, password=password)
+        print(user)
+        if user is not None:
+            login(self.request, user)
+            print("login~~~")
+        return super().form_valid(form)
+
+
+
+
+
+
 
 class LoginView_가내수공업(View):
     
@@ -47,8 +74,3 @@ class LoginView_가내수공업(View):
                 
             return redirect(reverse("core:home"))
         return render(request, "users/login.html", {"form":form})
-
-
-def log_out(request):
-    logout(request)
-    return redirect("core:home")
