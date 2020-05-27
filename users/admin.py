@@ -14,14 +14,14 @@ class CustomUserAdmin(UserAdmin):
     fieldset에 User가 가지고 있는 정보를 넣지 않았으므로 아직 만들어지지 않음
     """
     fieldsets = UserAdmin.fieldsets + (
-        ("profile", {"fields":("avatar", "gender", "bio", 'birthdate', 'language', 'currency', 'superhost')}),
+        ("profile", {"fields":("avatar", "gender", "bio", 'birthdate', 'language', 'currency', 'superhost', "login_method")}),
     )
     #("FieldName", {"fields":("attr1", "attr2")}), ...
         
     list_filter = UserAdmin.list_filter + ("superhost",)
 
     list_display = (
-        "username", "first_name", "last_name", "email", "is_active", "language", "currency", "superhost", "is_staff", "is_superuser"
+        "username", "first_name", "last_name", "email", "is_active", "language", "currency", "superhost", "is_staff", "is_superuser", "login_method"
     )
 
     # inlines = (RoomInline,)

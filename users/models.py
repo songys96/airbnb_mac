@@ -34,6 +34,16 @@ class User(AbstractUser):
         (CURRENCY_KRW, "KRW")
     )
 
+    LOGIN_SIGNUP = "signup"
+    LOGIN_GITHUB = "github"
+    LOGIN_KAKAO = "kakao"
+
+    LOGIN_CHOICES = (
+        (LOGIN_SIGNUP, "Signup"),
+        (LOGIN_GITHUB, "Github"),
+        (LOGIN_KAKAO, "Kakao")
+    )
+
     """ 
     choice의 경우 튜플안의 튜플 구조로 (그룹에 들어갈 이름, 보여질 이름)형식을 맞춰주되 
     위 처럼 각 필요한 변수의 이름을 지정해 줌으로써 추상화에 신경써줌
@@ -47,6 +57,9 @@ class User(AbstractUser):
     language = models.CharField(choices=LANGUAGE_CHOICES, max_length=10, null=True, blank=True, default=LANGUAGE_KOR)
     currency = models.CharField(choices=CURRENCY_CHOICES, max_length=6, null=True, blank=True, default=CURRENCY_KRW)
     superhost = models.BooleanField(default=False)
+
+    login_method = models.CharField(choices=LOGIN_CHOICES, max_length=50, null=True, blank=True, default=LOGIN_SIGNUP)
+
     
     def __str__(self):
         return self.username

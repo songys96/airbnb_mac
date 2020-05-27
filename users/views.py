@@ -1,4 +1,5 @@
 import os
+import requests
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import FormView
@@ -47,10 +48,24 @@ class SignUpView(FormView):
         return super().form_valid(form)
 
 def login_github(request):
-    
+    github_id = os.environ.get("GITHUB_ID")
+    redirect_uri = "http://localhost:8000/users/login/github/callback"
+    return redirect(f"https://github.com/login/oauth/authorize?client_id={github_id}&redirect_uri={redirect_uri}&scope=read:user")
 
 def login_github_callback(request):
-    pass
+    # code랑 access token 이랑 바꿀것
+    code = request.GET.get("code", None)
+    github_id = os.environ.get("GITHUB_ID")
+    github_secret = os.environ.get("GITHUB_PW")
+    print(code)
+    if code is not None:
+        request = requests.post(
+            f"https://github.com/login/oauth/access_token?client_id={github_id}&client_secret={github_secret}&code={code}",
+            headers={"Accept": "application/json"}
+        )
+        print(request.json())
+    else:
+        return redirect(reverse("core:home"))
 
 def login_kakao(request):
     pass
