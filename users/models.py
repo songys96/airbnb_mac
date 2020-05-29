@@ -37,11 +37,13 @@ class User(AbstractUser):
     LOGIN_SIGNUP = "signup"
     LOGIN_GITHUB = "github"
     LOGIN_KAKAO = "kakao"
+    LOGIN_NAVER = "naver"
 
     LOGIN_CHOICES = (
         (LOGIN_SIGNUP, "Signup"),
         (LOGIN_GITHUB, "Github"),
-        (LOGIN_KAKAO, "Kakao")
+        (LOGIN_KAKAO, "Kakao"),
+        (LOGIN_NAVER, "Naver")
     )
 
     """ 

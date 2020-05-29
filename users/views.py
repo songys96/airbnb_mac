@@ -179,7 +179,68 @@ def login_kakao_callback(request):
     except KakaoException:
         return redirect(reverse("users:login")) 
 
+class NaverException(Exception):
+    pass
 
+def login_naver(request):
+    client_id = os.environ.get("NAVER_ID")
+    redirect_uri = "http://localhost:8000/users/login/naver/callback"
+    return redirect(f"https://nid.naver.com/oauth2.0/authorize?client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&state=")
+
+def login_naver_callback(request):
+    
+    code = request.GET.get("code")
+    client_id = os.environ.get("NAVER_ID")
+    client_secret = os.environ.get("NAVER_SECRET")
+    redirect_uri = "http://localhost:8000/users/login/naver/callback"
+    token_request = requests.post(f"https://nid.naver.com/oauth2.0/token?client_id={client_id}&client_secret={client_secret}&grant_type=authorization_code&code={code}")
+    access_token = token_request.json().get("access_token")
+    print(access_token)
+    
+    profile_request = requests.get(
+        f"https://openapi.naver.com/v1/nid/me", headers={"Authorization":f"Bearer {access_token}"})
+    profile_json = profile_request.json()
+    print(profile_json)
+    user_account = profile_json.get("response")
+    nickname = user_account.get("nickname")
+    profile_img = user_account.get("profile_image", None)
+    print("profile_img", profile_img)
+    email = user_account.get("email")
+    username = email.split("@")[0]
+    print("------",username)
+    
+    try:
+        # 조군샵의 경우 중복확인을 휴대폰 번호로 검사했음
+        user = models.User.objects.get(username=username)
+        if user.login_method != models.User.LOGIN_NAVER:
+            print("user already exists in other flatform")
+            raise NaverException()
+    except models.User.DoesNotExist:
+        user = models.User.objects.create(
+            username = username,
+            email = email,
+            first_name = nickname,
+            login_method = models.User.LOGIN_NAVER,
+        )
+        user.set_unusable_password()
+        user.save()
+        if profile_img is not None:
+            # 이미지를 추가할 것인데 
+            # django.core.files.base.contentfile에서 바이너리 상태로 바꾸기
+            img_request = requests.get(profile_img)
+            print(img_request)
+            # 동명이인 고려해야할듯
+            user.avatar.save(
+                f"{username}_avatar",
+                ContentFile(img_request.content)
+            )
+    login(request, user)
+    print("done")
+    return redirect(reverse("core:home"))
+    """
+except KakaoException:
+    return redirect(reverse("users:login")) 
+    """
 
 
 
