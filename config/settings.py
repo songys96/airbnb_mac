@@ -137,6 +137,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+# 이건 홈페이지 url에 썼을때 연결되는 곳
+
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static")]
+# STATIC_URL에다가 폴더를 접목시킴
+# local:8000/static/avatars/IMG_0059.PNG 접근가능
 
 AUTH_USER_MODEL = 'users.User'
 

@@ -36,7 +36,7 @@
     {% endfor %}
     </ul>
     {% for photo in room.photos.all %}
-        <img src = "/media/{{photo.file}}"><br>
+        <img src = "{{photo.file.url}}"><br>
     {% endfor %}
 </div>
 {% endblock content %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% comment %} base에 설치해놓은 블럭을 여기에다가 만들어줌 {% endcomment %}
 
 {% block page_title %}
@@ -7,26 +7,42 @@
 {% endblock page_title %}
 
 {% block content %}
-    {% for room in rooms %}
+
+    <div class="container mx-auto">
+        <div class="container rounded-huge mx-auto bg-gray-700 h-50vh mt-32 mb-24 bg-cover" style="background-image: url({% static 'img/IMG_1251.JPG' %})"></div>
+        <div class="flex flex-wrap -mx-30">
+            {% for room in rooms %}
+                {% include "rooms/room_card.html" with room=room %}
+                {% comment %} 
+                순서 : views.py (def room_detail) -> urls.py (urlpatterns(path(인자, room_detail, name=찾을 이름)))
+                {% endcomment %}
+            {% endfor %}
+        </div>
+
         
-        <h3><a href="{% url "rooms:detail" room.pk %}"> {{room.name}} - {{room.price}}원</h3>
-        {% comment %} 
-        순서 : views.py (def room_detail) -> urls.py (urlpatterns(path(인자, room_detail, name=찾을 이름)))
-        {% endcomment %}
-    {% endfor %}
+        {% comment %} page.paginator는 부모한테 가는 것이고 부모의 num_pages를 가져옴 {% endcomment %}
+        <div>
+            <div class="container flex justify-center">
+                Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+            </div>
+            <br>
+            <div class="container flex space-x-1 justify-center">
+                {% if page_obj.has_previous %}
+                    <a href = "?page={{page_obj.previous_page_number}}">
+                        <i class="fas fa-arrow-left text-teal-500"></i>
+                    </a>
+                {% endif %}
+                {% for page in page_obj.paginator.page_range %}
+                    <a href = "?page={{page}}">{{page}}</a>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <a href = "?page={{page_obj.next_page_number}}">
+                        <i class="fas fa-arrow-right text-teal-500"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 
     
-    Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
-    {% comment %} page.paginator는 부모한테 가는 것이고 부모의 num_pages를 가져옴 {% endcomment %}
-    <h5>
-    {% if page_obj.has_previous %}
-        <a href = "?page={{page.previous_page_number}}">이전</a>
-    {% endif %}
-    {% for page in page_obj.paginator.page_range %}
-        <a href = "?page={{page}}">{{page}}</a>
-    {% endfor %}
-    {% if page_obj.has_next %}
-        <a href = "?page={{page.next_page_number}}">다음</a>
-    {% endif %}
-    </h5>
 {% endblock  %}

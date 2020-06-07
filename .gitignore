@@ -140,3 +140,4 @@ cython_debug/
 
 .DS_Store
 Uploads/
+node_modules
