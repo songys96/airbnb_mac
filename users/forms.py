@@ -4,8 +4,8 @@ from . import models
 class LoginForm(forms.Form):
 
     #email = forms.EmailField()
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'password'}))
 
     """
     views에서 POST 했을때만 clean으로 넘어감
@@ -34,11 +34,23 @@ class SignUpForm(forms.ModelForm):
     class Meta:
         model = models.User
         fields = ("username", "first_name", "last_name")
+        widgets = {
+            'first_name' : forms.TextInput(attrs={'placeholder':'First Name'}),
+            'username' : forms.TextInput(attrs={'placeholder':'Username'}),
+            'last_name' : forms.TextInput(attrs={'placeholder':'Last Name'}),
+        }
 
-    password = forms.CharField(widget=forms.PasswordInput)
-    confirm_password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Confirm Password'}))
 
     def clean(self):
+        username = self.cleaned_data.get("username")
+        try:
+            models.User.objects.get(username=username)
+            raise forms.ValidationError("User already exist", code="existing_user")
+            
+        except models.User.DoesNotExist:
+            pass
         password = self.cleaned_data.get("password")
         confirm_password = self.cleaned_data.get("confirm_password")
         if password != confirm_password:

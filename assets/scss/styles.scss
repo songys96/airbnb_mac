@@ -15,4 +15,21 @@
     }
 }
 
+.social-btn{
+    @apply w-full text-center rounded-sm py-5 border font-medium border-gray-400;
+}
+
+input {
+    @apply w-full text-left border rounded-sm py-5 font-medium border-gray-600 px-5 ;
+    &:focus{
+        @apply outline-none border-teal-500;
+    }
+}
+
+form{
+    input{
+        @apply mb-3
+    }
+}
+
 @tailwind utilities;

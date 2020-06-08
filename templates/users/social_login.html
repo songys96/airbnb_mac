@@ -1,13 +1,21 @@
-<div>
-    <a href= "{% url 'users:login-github' %}">
+<div class="flex flex-col w-full">
+    <a href= "{% url 'users:login-github' %}" class="social-btn bg-gray-400 -mb-1">
+        <i class="fab fa-github"></i>
         Continue with GitHub
     </a>
     <br>
-    <a href= "{% url 'users:login-kakao' %}">
+    <a href= "{% url 'users:login-kakao' %}" class="social-btn bg-yellow-400 -mb-1">
+        <i class="fas fa-comment"></i>
         Continue with Kakao
     </a>
     <br>
-    <a href= "{% url 'users:login-naver' %}">
+    <a href= "{% url 'users:login-naver' %}" class="social-btn bg-navery text-white">
+        <i class="fab fa-neos font-bold "></i>
         Continue with Naver
     </a>
+</div>
+<div class="flex items-center w-full my-4">
+    <div class="h-px w-full bg-gray-400"></div>
+        <span class="text-gray-600 font-medium mx-4">or</span>
+    <div class="h-px w-full bg-gray-400"></div>
 </div>

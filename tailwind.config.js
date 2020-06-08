@@ -12,8 +12,13 @@ module.exports = {
         "75vw" : "75vw",
         
       },
+      
       borderRadius: {
         'huge' : "1.5rem"
+      },
+
+      colors: {
+        'navery' : '#00d237',
       }
     }
   },

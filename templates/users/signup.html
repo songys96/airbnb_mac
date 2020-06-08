@@ -9,11 +9,26 @@
 {% endblock search-bar %}
 
 {% block content %}
-    Hello
-    <form method="POST" action="{% url "users:signup" %}">
-        {% csrf_token %}
-        {{form.as_p}}
-    <button>Sign Up</button>
-    </form>
+    <div class="container sm:w-8/12 lg:w-5/12 md:w-1/2 xl:w-3/12  mx-auto my-10 flex flex-col itmes-center border p-4 border-gray-500">
+        
+        {%include 'users/social_login.html'%}
 
+        <form method="POST" action="{% url "users:signup" %}">
+            {% csrf_token %}
+
+            {{form.username}}
+            {{form.first_name}}
+            {{form.last_name}}
+            {{form.password}}
+            {{form.confirm_password}}
+
+            {% if form.non_field_errors %}
+                {% for e in form.non_field_errors %}
+                    <span class="text-red-700 font-medium text-sm">{{e}}</span>
+                {% endfor %}
+            {% endif %}
+
+        <button class="social-btn mt-3">Sign Up</button>
+        </form>
+    </div>
 {% endblock content %}
